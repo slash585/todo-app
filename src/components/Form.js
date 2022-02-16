@@ -10,7 +10,7 @@ export default function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addTodo({id: nanoid(10), title: title, complated: false}))
+    dispatch(addTodo({title}))
     setTitle('')
   }
 
