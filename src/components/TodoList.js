@@ -1,24 +1,40 @@
 import React from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { toggle, destroyTodo } from "../redux/todo/todoSlice"
+
+let filtered = []
 
 function TodoList() {
   const items = useSelector((state) => state.todos.items)
+  const activeFilter = useSelector((state) => state.todos.activeFilter)
+  const dispatch = useDispatch()
+
+  filtered = items
+
+  if (activeFilter !== "all") {
+    filtered = items.filter((todo) =>
+      activeFilter === "active"
+        ? todo.complated === false
+        : todo.complated === true
+    )
+  }
+
   return (
     <ul className="todo-list">
-      {/* <li className="completed">
-        <div className="view">
-          <input className="toggle" type="checkbox" />
-          <label>Learn JavaScript</label>
-          <button className="destroy"></button>
-        </div>
-      </li> */}
-
-      {items.map((item) => (
-        <li key={item.id}>
+      {filtered.map((item) => (
+        <li key={item.id} className={item.complated ? "completed" : ""}>
           <div className="view">
-            <input className="toggle" type="checkbox" />
+            <input
+              className="toggle"
+              checked={item.complated}
+              onChange={() => dispatch(toggle({ id: item.id }))}
+              type="checkbox"
+            />
             <label>{item.title}</label>
-            <button className="destroy"></button>
+            <button
+              onClick={() => dispatch(destroyTodo({ id: item.id }))}
+              className="destroy"
+            ></button>
           </div>
         </li>
       ))}
