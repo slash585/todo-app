@@ -41,6 +41,9 @@ export const todoSlice = createSlice({
   },
 })
 
+export const selectTodos = state => state.todos.items
+export const selectActiveFilter = state => state.todos.activeFilter
+
 export const {
   addTodo,
   toggle,

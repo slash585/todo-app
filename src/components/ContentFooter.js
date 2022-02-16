@@ -1,10 +1,10 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { destroyComplatedTodos, setFilterType } from "../redux/todo/todoSlice"
+import { destroyComplatedTodos, setFilterType, selectTodos, selectActiveFilter } from "../redux/todo/todoSlice"
 
 export default function ContentFooter() {
-  const itemsLength = useSelector((state) => state.todos.items.length)
-  const activeFilter = useSelector((state) => state.todos.activeFilter)
+  const itemsLength = useSelector(selectTodos).length
+  const activeFilter = useSelector(selectActiveFilter)
   const dispatch = useDispatch()
   return (
     <footer className="footer">
